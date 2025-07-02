@@ -24,7 +24,7 @@ const onSubmit = async (data) => {
     message: data.message,
   };
   try {
-    const res = await axios.post("http://localhost:4001/contact/connect", contactInfo);
+    const res = await axios.post("https://mainbook-3.onrender.com/contact/connect", contactInfo);
     if (res.data) {
       toast.success("Thank you! For Your Valuable Feedback.");
       navigate(from ,{replace:true});

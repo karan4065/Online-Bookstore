@@ -13,8 +13,8 @@ function Login() {
       password: data.password,
     };
     try {
-      console.log(import.meta.env.VITE_APP)
-      const res = await axios.post(`${import.meta.env.VITE_APP}/user/login`, userInfo);
+    
+      const res = await axios.post("https://mainbook-3.onrender.com/user/login", userInfo);
       if (res.data) {
         toast.success("Login Successfully !!");
         document.getElementById("my_modal_3").close();

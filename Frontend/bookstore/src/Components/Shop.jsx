@@ -80,7 +80,7 @@ function Shop() {
     };
 
     try {
-      const res = await axios.post("http://localhost:4001/product/order", orderInfo);
+      const res = await axios.post("https://mainbook-3.onrender.com/product/order", orderInfo);
       if (res.data) {
         toast.success("Order Placed Successfully !!");
         navigate(from, { replace: true });
