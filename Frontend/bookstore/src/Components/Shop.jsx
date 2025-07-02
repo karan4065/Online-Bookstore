@@ -85,7 +85,7 @@ function Shop() {
         toast.success("Order Placed Successfully !!");
         navigate(from, { replace: true });
       }
-      localStorage.setItem("Orders", JSON.stringify(res.data.user));
+      localStorage.setItem("LatestOrder", JSON.stringify(orderInfo));
     } catch (err) {
       toast.error("Something went wrong !!");
       navigate(from, { replace: true });

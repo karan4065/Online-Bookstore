@@ -13,7 +13,7 @@ import Contactmain from './Contactpage/Contactmain'
 import Aboutmain from './AboutPage/Aboutmain'
 import Orderpage from './OrderPage/Orderpage'
 import Cartmain from './CartPage/Cartmain'
-import Neworder from './Components/Neworder';
+import Confirm from './OrderedPage/Confirm';
 const App = () => {
   useEffect(() => {
     AOS.init({
@@ -45,7 +45,7 @@ const App = () => {
       <Route path='/login' element = {<Login/>}/>
       <Route path='/contact' element={<Contactmain/>}/>
       <Route path='/about' element={<Aboutmain/>}/>
-       <Route path='/orders' element={< Neworder/>}/>
+       <Route path='/orders' element={< Confirm/>}/>
       <Route path='/shop' element={<Orderpage/>}/>
       <Route path='/cart' 
       element = {authUser? <Cartmain/> : <Navigate to="/"/>}/>

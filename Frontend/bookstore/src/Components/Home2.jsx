@@ -6,13 +6,13 @@ const Books = () => {
 
   useEffect(() => {
     AOS.init({
-      duration: 1000, 
+      duration: 2000, 
       once: false,   
     });
   }, []);
 
   return (
-    <div data-aos="fade-down"> 
+    <div data-aos="fade-up"> 
     <div className="px-6 py-10 md:mt-16 md:px-20 bg-white text-gray-800 space-y-20 dark:bg-slate-900 dark:text-white">
       <div data-aos="zoom-in" data-aos-delay="100" data-aos-offset="200">
       <div className="flex flex-col md:flex-row items-center">
