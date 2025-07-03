@@ -4,7 +4,8 @@ import { useAuth } from '../context/AuthProvider';
 import Logout from './Logout';
 import toast from 'react-hot-toast';
 import { IoCartOutline } from "react-icons/io5";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -45,10 +46,10 @@ const Navbar = () => {
   const navItems = (
     <>
       <li className="transition-colors duration-[500ms] hover:bg-zinc-300 rounded-lg px-2 dark:hover:bg-slate-800">
-        <a href="/">Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li className="transition-colors duration-[500ms] hover:bg-zinc-300 rounded-lg px-2 dark:hover:bg-slate-800">
-        <a href="/course" onClick={(event) => {
+        <Link to="/course" onClick={(event) => {
           if (!authUser) {
             event.preventDefault(); 
             const toastId = toast.error("You must log in first to access the course section.");
@@ -58,16 +59,16 @@ const Navbar = () => {
           }
         }}>
           Books
-        </a>
+        </Link>
       </li>
       <li className="transition-colors duration-[500ms] hover:bg-zinc-300 rounded-lg px-2 dark:hover:bg-slate-800">
-        <a href='/contact'>Contact</a>
+        <Link href='/contact'>Contact</Link>
       </li>
       <li className="transition-colors duration-[500ms] hover:bg-zinc-300 rounded-lg px-2 dark:hover:bg-slate-800">
-        <a href='/orders'>Orders</a>
+        <Link href='/orders'>Orders</Link>
       </li>
       <li className="transition-colors duration-[500ms] hover:bg-zinc-300 rounded-lg px-2 dark:hover:bg-slate-800">
-        <a href='/about'>About</a>
+        <Link href='/about'>About</Link>
       </li>
     </>
   );
