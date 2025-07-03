@@ -62,13 +62,13 @@ const Navbar = () => {
         </Link>
       </li>
       <li className="transition-colors duration-[500ms] hover:bg-zinc-300 rounded-lg px-2 dark:hover:bg-slate-800">
-        <Link href='/contact'>Contact</Link>
+        <Link to='/contact'>Contact</Link>
       </li>
       <li className="transition-colors duration-[500ms] hover:bg-zinc-300 rounded-lg px-2 dark:hover:bg-slate-800">
-        <Link href='/orders'>Orders</Link>
+        <Link to='/orders'>Orders</Link>
       </li>
       <li className="transition-colors duration-[500ms] hover:bg-zinc-300 rounded-lg px-2 dark:hover:bg-slate-800">
-        <Link href='/about'>About</Link>
+        <Link to='/about'>About</Link>
       </li>
     </>
   );
