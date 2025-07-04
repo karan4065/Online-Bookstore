@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import { FaGithubSquare } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Footer from "./Footer";
 
 
 const Contact = () => {
@@ -43,7 +44,7 @@ const onSubmit = async (data) => {
 
   return (
        <div>
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6 bg-white dark:bg-slate-900 dark:text-white">
+        <div className="min-h-screen flex items-center justify-center p-6 bg-white dark:bg-slate-900 dark:text-white">
   <div className="bg-white dark:bg-slate-900 dark:text-white w-full">
     <div className="max-w-7xl mx-auto px-4 py-12">
       <div className="flex flex-col md:flex-row items-center justify-between space-y-8 md:space-y-0">
@@ -105,17 +106,17 @@ const onSubmit = async (data) => {
             <div>
               <label className="block text-lg font-medium text-gray-700 dark:text-gray-300">Message</label>
               <textarea
-                className="w-full p-4 mt-2 text-black border text-black border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full p-4 mt-2 text-black border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 rows="2"
                 placeholder="Your Message"
                 {...register("message")}
               ></textarea>
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+              className="w-full dark:bg-teal-500 text-white py-3 rounded-lg 
+              bg-pink-500 hover:bg-pink-600  dark:hover:bg-teal-600 transition duration-300"
             >
               Send Message
             </button>
@@ -124,25 +125,16 @@ const onSubmit = async (data) => {
         </div>
       </div>
 
-      {/* Social Media Section */}
-      <div className="text-center mt-12">
-        <p className="text-xl text-gray-600 dark:text-gray-300 mb-4">Or connect with me:</p>
-        <div className="flex justify-center gap-6 text-4xl mt-4">
-          <a  href="https://www.linkedin.com/in/karan-jadhav-573968322/"
-          className="text-blue-600 dark:text-blue-500 dark:hover:text-blue-700 hover:text-blue-800 active: transition duration-200">
-            <FaLinkedin />
-          </a>
-          <a href="https://github.com/karan4065" className="text-gray-800 dark:hover:text-white dark:text-white dark:hover:text-slate-600 hover:text-black transition duration-200">
-            <FaGithubSquare />
-          </a>
-          
-        </div>
+      <div className="text-center mt-6">
+        <p className="text-xl text-gray-600 dark:text-gray-300 ">Or connect with me:</p>
+      </div>
+      <div className="mb-4 flex justify-center ">
+         <Footer/>
       </div>
     </div>
   </div>
 </div>
-
-       </div> 
+</div> 
 
   );
 };

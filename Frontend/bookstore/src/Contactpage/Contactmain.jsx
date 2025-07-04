@@ -8,7 +8,6 @@ function Contactmain() {
     <>
     <Navbar/>
     <Contact/>
-    <Footer/>
     </>
   )
 }

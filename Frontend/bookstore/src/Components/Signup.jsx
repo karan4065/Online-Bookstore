@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import Login from "./Login";
 import toast from "react-hot-toast";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 function Signup() { // this is signup api call 
 
@@ -39,13 +41,14 @@ function Signup() { // this is signup api call
 
   return (
     <>
-      <div className="bg-white dark:bg-slate-700 dark:text-white  md:h-screen flex items-center h-screen ml-8 mt-20 md:mt-0 md:ml-0 w-[450px] md:w-auto justify-center">
-        <div className="bg-white  dark:bg-slate-700  w-[450px]">
-          <div className="modal-box dark:bg-slate-800 dark:text-white ">
+    <Navbar/>
+      <div className="bg-white dark:bg-slate-900 dark:text-white  md:h-screen flex items-center h-screen ml-8 mt-20 md:mt-0 md:ml-0 w-[450px] md:w-auto justify-center">
+        <div className="bg-white  dark:bg-slate-900  w-[450px]">
+          <div className="modal-box dark:bg-slate-800 dark:text-white mb-10">
             <form onSubmit={handleSubmit(onSubmit)}>
               <Link
                 to="/"
-                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-3 hover:border-white dark:bg-slate-800 dark:text-white hover:border-black rounded-full"
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-3 hover:border-white dark:bg-slate-800 dark:text-white  rounded-full"
               >
                 ✕
               </Link>
@@ -113,6 +116,9 @@ function Signup() { // this is signup api call
           </div>
         </div>
       </div>
+       <div className="mt-[-150px]">
+        <Footer/>
+       </div>
     </>
   );
 }

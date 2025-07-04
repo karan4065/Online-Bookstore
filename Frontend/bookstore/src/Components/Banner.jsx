@@ -9,10 +9,10 @@ const Banner = () => {
           <div className="space-y-8 py-8">
             <h1 className="text-4xl font-bold">
               Hello, welcome here to learn something 
-              <span className="text-teal-500"> new everyday !!!</span>
+              <span className="dark:text-teal-500  text-pink-500"> new everyday !!!</span>
             </h1>
             <p className="dark:text-slate-500 text-xl w-auto md:w-full text-zinc-700">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut, omnis id porro expedita hic ab maxime dicta provident nostrum velit vel amet error officiis.
+              A good bookstore is a peaceful place full of stories and ideas. It helps you learn new things and explore different worlds. Whether you read for fun or knowledge, there's something for everyone. 
             </p>
             <label className="input input-bordered flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 opacity-70">
@@ -22,7 +22,7 @@ const Banner = () => {
               <input type="text" className="grow" placeholder="Email" />
             </label>
           </div>
-          <a href='/course' className="btn mt-2  md:mt-0 dark:hover:bg-teal-700 dark:bg-teal-600 dark:text-white btn-secondary bg-teal-500 outline-none hover:bg-teal-600 cursor-pointer duration-200 text-white">
+          <a href='/course' className="btn mt-2  md:mt-0 dark:hover:bg-teal-700 dark:bg-teal-600 dark:text-white btn-secondary bg-pink-500 outline-none hover:bg-pink-700 cursor-pointer duration-200 text-white">
             Get Started
           </a>
         </div>

@@ -22,7 +22,7 @@ function Cards({ item }) {
         <div className="p-4 space-y-2 text-slate-800 dark:text-white">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-semibold truncate">{item.name}</h2>
-            <span className="text-xs px-2 py-1 rounded-full bg-pink-500 text-white">
+            <span className="text-xs px-2 py-1 rounded-full bg-pink-500 dark:bg-teal-700 text-white">
               {item.category}
             </span>
           </div>
@@ -36,7 +36,8 @@ function Cards({ item }) {
             <Link
               to="/shop"
               state={{ item }}
-              className="text-sm font-medium px-3 py-1 rounded-full border border-pink-500 text-pink-500 hover:bg-pink-500 hover:text-white transition-colors duration-200"
+              className="text-sm font-medium px-3 py-1 rounded-full border-pink-300 text-pink-500 dark:border
+              hover:bg-pink-500 hover:text-white transition-colors duration-200"
             >
               Buy Now
             </Link>

@@ -69,23 +69,29 @@ function Shop() {
 
   const onSubmit = async (data) => {
     const orderInfo = {
-      name: data.name,
-      email: data.email,
-      address: data.address,
-      number: data.number,
-      bookName:data.bookName,
-      payment: data.payment,
-      quantity: quantity,
-      totalPrice: item.price * quantity,
-    };
-
+  name: data.name,
+  email: data.email,
+  address: data.address,
+  number: data.number,
+  bookName: item.name,
+  image: item.image,  
+  payment: data.payment,
+  quantity: quantity,
+  totalPrice: item.price * quantity,
+  orderDate: new Date().toISOString(),
+  estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString()
+};
     try {
       const res = await axios.post("https://mainbook-3.onrender.com/product/order", orderInfo);
+      const existingOrders = JSON.parse(localStorage.getItem("orderInfo")) || [];
+      existingOrders.push(orderInfo);
+      localStorage.setItem("orderInfo", JSON.stringify(existingOrders));
+
       if (res.data) {
         toast.success("Order Placed Successfully !!");
         navigate(from, { replace: true });
       }
-      localStorage.setItem("LatestOrder", JSON.stringify(orderInfo));
+
     } catch (err) {
       toast.error("Something went wrong !!");
       navigate(from, { replace: true });
@@ -115,7 +121,7 @@ function Shop() {
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="w-full h-full md:h-72 h-64 object-cover"
+                    className="w-full h-full md:h-72 object-cover"
                   />
                 </div>
 

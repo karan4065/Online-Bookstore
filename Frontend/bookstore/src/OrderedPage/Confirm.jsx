@@ -1,16 +1,20 @@
-import React from 'react'
-import Navbar from '../Components/Navbar'
-import Footer from '../Components/Footer'
-import Neworder from '../Components/Neworder'
+import React from 'react';
+import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
+import Neworder from '../Components/Neworder';
 
 const Confirm = () => {
   return (
-    <div>
-        <Navbar/>
-        <Neworder/>
-        <Footer/>
-    </div>
-  )
-}
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      
+      <div className="flex-grow">
+        <Neworder />
+      </div>
 
-export default Confirm
+      <Footer />
+    </div>
+  );
+};
+
+export default Confirm;

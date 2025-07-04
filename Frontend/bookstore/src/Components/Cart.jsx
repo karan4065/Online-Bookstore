@@ -9,7 +9,6 @@ function Cart() {
   const item = location.state?.item; // Get book details from Shop Page
   const [cart, setCart] = useState([]);
 
-  // Load cart from localStorage when page loads
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart")) || [];
     setCart(storedCart);

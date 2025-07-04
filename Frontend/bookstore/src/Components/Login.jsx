@@ -1,11 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 
 function Login() {
   const {register, handleSubmit,  formState: { errors },} = useForm();
+   
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || "/";
 
   const onSubmit = async(data) => {
     const userInfo = {
@@ -17,6 +21,7 @@ function Login() {
       const res = await axios.post("https://mainbook-3.onrender.com/user/login", userInfo);
       if (res.data) {
         toast.success("Login Successfully !!");
+        navigate(from ,{replace:true});
         document.getElementById("my_modal_3").close();
         setTimeout(()=>{
           window.location.reload();
