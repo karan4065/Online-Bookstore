@@ -55,8 +55,8 @@ function Shop() {
       toast.error("Login required for UPI payment.");
       return;
     }
-
-    const amount = item.price * quantity * 100;
+    
+    const amount = item.price * item.quantity * 100;
     const currency = "INR";
 
     const response = await fetch("https://online-bookstore-1-eblu.onrender.com/order", {
@@ -82,7 +82,7 @@ function Shop() {
       bookName: item.name,
       image: item.image,
       payment: data.payment,
-      quantity: quantity,
+      quantity: item.quantity,
       totalPrice: item.price * quantity,
       orderDate: new Date().toISOString(),
       estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),

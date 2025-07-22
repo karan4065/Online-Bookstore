@@ -49,9 +49,9 @@ const Neworder = () => {
           <div key={index} className="max-w-6xl mx-auto mt-8 p-4 border h-[640px] md:h-auto dark:bg-slate-900 dark:text-white bg-white shadow-lg rounded-xl ">
             <div className="grid grid-cols-5 font-bold bg-cyan-500 text-white px-4 py-2 rounded-t">
               <div className="col-span-2">Product</div>
-              <div className="text-center">Quantity</div>
-              <div className="text-center">Price</div>
-              <div className="text-center">Total</div>
+              <div className="text-center ml-[-60px] md:ml-0">Quantity</div>
+              <div className="text-center md:ml-0 ml-[-25px]">Price</div>
+              <div className="text-center  md:ml-0 ml-[15px]">Total</div>
             </div>
 
             <div className="grid grid-cols-5 items-center px-4 py-4 border-b">
@@ -59,9 +59,9 @@ const Neworder = () => {
                 <img
                   src={order.image || "https://via.placeholder.com/80x100?text=Book"}
                   alt={order.bookName}
-                  className="w-20 h-24  object-cover border"
+                  className="w-20 h-24 md:ml-0 ml-[-15px]  object-cover border"
                 />
-                <p>{order.bookName}</p>
+                <p className="hidden md:block">{order.bookName}</p>
               </div>
 
               <div className="text-center dark:text-black">
@@ -69,12 +69,12 @@ const Neworder = () => {
                   type="number"
                   readOnly
                   value={order.quantity}
-                  className="w-10 text-center border rounded"
+                  className="w-10 md:ml-0 ml-[-70px]  text-center border rounded"
                 />
               </div>
 
-              <div className="text-center">₹{order.totalPrice.toFixed(2)}</div>
-              <div className="text-center">₹{total.toFixed(2)}</div>
+              <div className="text-center md:ml-0 ml-[-25px] ">₹{order.totalPrice.toFixed(2)}</div>
+              <div className="text-center md:ml-0 ml-[15px] ">₹{total.toFixed(2)}</div>
             </div>
 
             {/* Timeline Section */}
