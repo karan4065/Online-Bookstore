@@ -22,7 +22,7 @@ function Signup() { // this is signup api call
       password: data.password,
     };
     try {
-      const res = await axios.post("https://mainbook-3.onrender.com/user/signup", userInfo);
+      const res = await axios.post("https://online-bookstore-lzfa.onrender.com/user/signup", userInfo);
       if (res.data) {
         toast.success("Signup Successfully Go to Login !!");
         navigate(from ,{replace:true});

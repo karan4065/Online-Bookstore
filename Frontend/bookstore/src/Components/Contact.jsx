@@ -4,8 +4,6 @@ import {useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { FaGithubSquare } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Footer from "./Footer";
 
@@ -25,7 +23,7 @@ const onSubmit = async (data) => {
     message: data.message,
   };
   try {
-    const res = await axios.post("https://mainbook-3.onrender.com/contact/connect", contactInfo);
+    const res = await axios.post("https://online-bookstore-lzfa.onrender.com/contact/connect", contactInfo);
     if (res.data) {
       toast.success("Thank you! For Your Valuable Feedback.");
       navigate(from ,{replace:true});
