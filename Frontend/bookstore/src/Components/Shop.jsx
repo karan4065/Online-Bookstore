@@ -59,7 +59,7 @@ function Shop() {
     const amount = item.price * quantity * 100;
     const currency = "INR";
 
-    const response = await fetch("https://online-bookstore-lzfa.onrender.com/order", {
+    const response = await fetch("https://online-bookstore-1-eblu.onrender.com/order", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -101,7 +101,7 @@ function Shop() {
         const body = { ...response };
 
         try {
-          const validateResponse = await fetch("https://online-bookstore-lzfa.onrender.com/validate", {
+          const validateResponse = await fetch("https://online-bookstore-1-eblu.onrender.com/validate", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -114,7 +114,7 @@ function Shop() {
 
           if (jsonResponse) {
             try {
-              await axios.post("https://online-bookstore-lzfa.onrender.com/product/order", orderInfo);
+              await axios.post("https://online-bookstore-1-eblu.onrender.com/product/order", orderInfo);
 
               const existingOrders = JSON.parse(localStorage.getItem("orderInfo")) || [];
               existingOrders.push(orderInfo);
@@ -181,7 +181,7 @@ function Shop() {
     }
 
     try {
-      const res = await axios.post("https://online-bookstore-lzfa.onrender.com/product/order", orderInfo);
+      const res = await axios.post("https://online-bookstore-1-eblu.onrender.com/product/order", orderInfo);
       const existingOrders = JSON.parse(localStorage.getItem("orderInfo")) || [];
       existingOrders.push(orderInfo);
       localStorage.setItem("orderInfo", JSON.stringify(existingOrders));

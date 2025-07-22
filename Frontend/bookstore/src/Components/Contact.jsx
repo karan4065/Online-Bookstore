@@ -23,7 +23,7 @@ const onSubmit = async (data) => {
     message: data.message,
   };
   try {
-    const res = await axios.post("https://online-bookstore-lzfa.onrender.com/contact/connect", contactInfo);
+    const res = await axios.post("https://online-bookstore-1-eblu.onrender.com/contact/connect", contactInfo);
     if (res.data) {
       toast.success("Thank you! For Your Valuable Feedback.");
       navigate(from ,{replace:true});
