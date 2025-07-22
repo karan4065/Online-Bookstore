@@ -43,10 +43,10 @@ const Neworder = () => {
     <div>
       <h2 className="text-3xl mt-20 font-bold text-center text-purple-700">Your Orders</h2>
       {orders.map((order, index) => {
-        const pricePerItem = order.totalPrice / order.quantity;
+        const total = order.totalPrice * order.quantity;
 
         return (
-          <div key={index} className="max-w-6xl mx-auto mt-4 p-4 border dark:bg-slate-900 dark:text-white bg-white shadow-lg rounded-xl">
+          <div key={index} className="max-w-6xl mx-auto mt-8 p-4 border h-[640px] md:h-auto dark:bg-slate-900 dark:text-white bg-white shadow-lg rounded-xl ">
             <div className="grid grid-cols-5 font-bold bg-cyan-500 text-white px-4 py-2 rounded-t">
               <div className="col-span-2">Product</div>
               <div className="text-center">Quantity</div>
@@ -59,8 +59,9 @@ const Neworder = () => {
                 <img
                   src={order.image || "https://via.placeholder.com/80x100?text=Book"}
                   alt={order.bookName}
-                  className="w-20 h-24 object-cover border"
+                  className="w-20 h-24  object-cover border"
                 />
+                <p>{order.bookName}</p>
               </div>
 
               <div className="text-center dark:text-black">
@@ -72,8 +73,8 @@ const Neworder = () => {
                 />
               </div>
 
-              <div className="text-center">₹{pricePerItem.toFixed(2)}</div>
               <div className="text-center">₹{order.totalPrice.toFixed(2)}</div>
+              <div className="text-center">₹{total.toFixed(2)}</div>
             </div>
 
             {/* Timeline Section */}
@@ -102,7 +103,7 @@ const Neworder = () => {
             </div>
 
             {/* Buttons */}
-            <div className="flex justify-end gap-6 mt-[-40px]">
+            <div className="flex justify-center md:justify-end gap-6 mt-[40px] md:mt-[-40px]">
               <button
                 onClick={() => handleCancel(index)}
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"

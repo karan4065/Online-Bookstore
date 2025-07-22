@@ -169,7 +169,7 @@ const Navbar = () => {
             </div>
 
             <div>
-            <p onClick={MoveToCart} className="h-7 w-7 mr-4 mb-2 md:mt-0 text-3xl cursor-pointer font-semibold">
+            <p onClick={MoveToCart} className="h-7 w-7 mr-4 mb-0 md:mb-2 md:mt-0 text-3xl cursor-pointer font-semibold">
               <IoCartOutline />
             </p>
 

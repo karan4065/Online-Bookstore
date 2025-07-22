@@ -62,11 +62,11 @@ const onSubmit = async (data) => {
             <img
               src={photo}
               alt="Karan Jadhav"
-              className="h-64 w-64 object-cover rounded-md shadow-lg "
+              className="h-64 w-64 object-cover rounded-md mt-8 shadow-lg "
             />
           </div>
           {/* Name */}
-          <h2 className="text-3xl font-semibold mt-6 text-gray-900 dark:text-white dark:hover:text-emerald-500 transition-all active:scale-95 cursor-pointer">Karan Jadhav</h2>
+          <h2 className="text-3xl font-semibold mt-10 text-gray-900 dark:text-white dark:hover:text-emerald-500 transition-all active:scale-95 cursor-pointer">Karan Jadhav</h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 dark:hover:text-red-500">Full-Stack Developer</p>
           </motion.div>
         </div>
@@ -115,7 +115,7 @@ const onSubmit = async (data) => {
 
             <button
               type="submit"
-              className="w-full dark:bg-teal-500 text-white py-3 rounded-lg 
+              className="w-full dark:bg-blue-500 text-white py-3 rounded-lg 
               bg-pink-500 hover:bg-pink-600  dark:hover:bg-teal-600 transition duration-300"
             >
               Send Message

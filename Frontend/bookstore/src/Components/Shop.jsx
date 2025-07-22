@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthProvider";
- 
 
 function Shop() {
   const location = useLocation();
@@ -13,6 +12,7 @@ function Shop() {
   const item = location.state?.item;
   const { register, handleSubmit } = useForm();
   const [authUser] = useAuth();
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
 
   const [order, setOrder] = useState(false);
   const [book, setBook] = useState(true);
@@ -24,8 +24,8 @@ function Shop() {
       setOrder(true);
       setBook(false);
     }
+    console.log("authUser -->", authUser);
   }, []);
-  
 
   const increaseQty = () => setQuantity((prev) => prev + 1);
   const decreaseQty = () => setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
@@ -36,53 +36,152 @@ function Shop() {
       toast.error("Please login to add items to cart.");
       return;
     }
-  
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
     const exists = cart.find((i) => i.name === item.name && i.title === item.title);
 
     if (exists) {
       toast.error("Item is already in cart!");
       return;
     }
-  
+
     cart.push({ ...item, quantity });
     localStorage.setItem("cart", JSON.stringify(cart));
     toast.success("Item added to cart!");
   };
-  
-  
-  
-  const handleOrder = () => {
+
+  const paymentHandler = async (data) => {
     if (!authUser) {
-      toast.error("Login required to order.");
+      toast.error("Login required for UPI payment.");
       return;
     }
-    setOrder(true);
-    setBook(false);
+
+    const amount = item.price * quantity * 100;
+    const currency = "INR";
+
+    const response = await fetch("http://localhost:4001/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: amount,
+        currency: currency,
+        receipt: `receipt_order_${Date.now()}`,
+      }),
+    });
+
+    const order = await response.json();
+    console.log("order", order);
+
+    const orderInfo = {
+      name: data.name || authUser?.name || "Anonymous User",
+      email: data.email || authUser?.email || "unknown@example.com",
+      address: data.address,
+      number: data.number,
+      bookName: item.name,
+      image: item.image,
+      payment: data.payment,
+      quantity: quantity,
+      totalPrice: item.price * quantity,
+      orderDate: new Date().toISOString(),
+      estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+    };
+
+    const options = {
+      key: order.key,
+      amount: order.amount,
+      currency: currency,
+      name: "Karan's Book Store",
+      description: `Order for ${item.name}`,
+      image: "https://t4.ftcdn.net/jpg/02/11/07/81/360_F_211078110_mttxEdu3gsSbMKajsy98E4M4E5RUCiuo.jpg",
+      order_id: order.id,
+
+      handler: async function (response) {
+        const body = { ...response };
+
+        try {
+          const validateResponse = await fetch("http://localhost:4001/validate", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          });
+
+          const jsonResponse = await validateResponse.json();
+          console.log("hello kj ", jsonResponse);
+
+          if (jsonResponse) {
+            try {
+              await axios.post("http://localhost:4001/product/order", orderInfo);
+
+              const existingOrders = JSON.parse(localStorage.getItem("orderInfo")) || [];
+              existingOrders.push(orderInfo);
+              localStorage.setItem("orderInfo", JSON.stringify(existingOrders));
+
+              toast.success("Order Placed Successfully !!");
+              navigate("/", { replace: true });
+            } catch (err) {
+              toast.error("Order Save Failed After Payment!");
+              console.log(err);
+            }
+          } else {
+            toast.error("Payment validation failed!");
+          }
+        } catch (err) {
+          toast.error("Validation API error");
+          console.log(err);
+        }
+      },
+
+      prefill: {
+        name: authUser?.name || "Customer",
+        email: authUser?.email || "customer@example.com",
+        contact: "9699823258",
+      },
+
+      notes: {
+        address: "MainBook Delivery Address",
+      },
+
+      theme: {
+        color: "#70d8be",
+      },
+    };
+
+    const rzp1 = new window.Razorpay(options);
+    rzp1.on("payment.failed", function (response) {
+      alert("Payment Failed: " + response.error.description);
+      console.log("Payment Failed", response.error);
+    });
+    rzp1.open();
   };
-  
-  const returntoShop = () => {
-    setOrder(false);
-    setBook(true);
-  }
 
   const onSubmit = async (data) => {
     const orderInfo = {
-  name: data.name,
-  email: data.email,
+  name: data.name || authUser?.name || "Anonymous User",
+  email: data.email || authUser?.email || "unknown@example.com",
   address: data.address,
   number: data.number,
   bookName: item.name,
-  image: item.image,  
+  image: item.image,
   payment: data.payment,
-  quantity: quantity,
+  quantity: item.quantity,
   totalPrice: item.price * quantity,
   orderDate: new Date().toISOString(),
-  estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString()
+  estimatedDelivery: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
 };
+
+ 
+
+    if (selectedPaymentMethod === "UPI Payment") {
+      await paymentHandler(data);
+      return;
+    }
+
     try {
-      const res = await axios.post("https://mainbook-3.onrender.com/product/order", orderInfo);
+      const res = await axios.post("http://localhost:4001/product/order", orderInfo);
       const existingOrders = JSON.parse(localStorage.getItem("orderInfo")) || [];
       existingOrders.push(orderInfo);
       localStorage.setItem("orderInfo", JSON.stringify(existingOrders));
@@ -91,12 +190,25 @@ function Shop() {
         toast.success("Order Placed Successfully !!");
         navigate(from, { replace: true });
       }
-
     } catch (err) {
       toast.error("Something went wrong !!");
       navigate(from, { replace: true });
       console.log(err);
     }
+  };
+
+  const handleOrder = () => {
+    if (!authUser) {
+      toast.error("Login required to order.");
+      return;
+    }
+    setOrder(true);
+    setBook(false);
+  };
+
+  const returntoShop = () => {
+    setOrder(false);
+    setBook(true);
   };
 
   
@@ -193,7 +305,7 @@ function Shop() {
     </h1>
 
     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-10">
-      {/* Left Column - Name, Email, Contact, Book Name */}
+    
       <div className="space-y-6">
         {/* Name */}
         <div>
@@ -264,40 +376,64 @@ function Shop() {
           ></textarea>
         </div>
 
-        {/* Payment Method */}
-        <div>
-          <label className="block text-lg font-medium mb-1 text-gray-700 dark:text-gray-300">
-            Payment Method
-          </label>
-          <select
-            defaultValue=""
-            {...register("payment", { required: true })}
-            className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="" disabled>
-              Select Payment Method
-            </option>
-            <option value="Cash On Delivery">Cash On Delivery</option>
-            <option value="UPI Payment">UPI Payment</option>
-          </select>
-        </div>
+          {/* Payment Method */}
+          <div>
+            <label className="block text-lg font-medium mb-2 text-gray-700 dark:text-gray-300">
+              Payment Method
+            </label>
+            <div className="space-y-2">
+              <label className="flex items-center space-x-3">
+                <input
+                  type="radio"
+                  value="Cash On Delivery"
+                  {...register("payment", { required: true })}
+                  onChange={() => setSelectedPaymentMethod("Cash On Delivery")}
+                  className="form-radio text-blue-600 w-5 h-5"
+                  checked={selectedPaymentMethod === "Cash On Delivery"}
+                />
+                <span className="text-gray-700 dark:text-gray-300">Cash On Delivery</span>
+              </label>
+              <label className="flex items-center space-x-3">
+                <input
+                  type="radio"
+                  value="UPI Payment"
+                  {...register("payment", { required: true })}
+                  onChange={() => setSelectedPaymentMethod("UPI Payment")}
+                  className="form-radio text-blue-600 w-5 h-5"
+                  checked={selectedPaymentMethod === "UPI Payment"}
+                />
+                <span className="text-gray-700 dark:text-gray-300">UPI Payment</span>
+              </label>
+            </div>
+          </div>
 
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 pt-2">
-          <button
-            type="submit"
-            className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-lg text-lg font-semibold transition-all"
-          >
-            Confirm Order
-          </button>
-          <button
-            type="button"
-            onClick={returntoShop}
-            className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-lg text-lg font-semibold transition-all"
-          >
-            Back to Shop
-          </button>
-        </div>
+          {/* Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            {selectedPaymentMethod === "UPI Payment" ? (
+              <button
+                type="submit"
+                className="w-full bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg text-lg font-semibold transition-all"
+              >
+                Pay Now
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="w-full bg-emerald-500 hover:bg-emerald-600 text-white py-3 rounded-lg text-lg font-semibold transition-all"
+              >
+                Confirm Order
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={returntoShop}
+              className="w-full bg-cyan-500 hover:bg-cyan-600 text-white py-3 rounded-lg text-lg font-semibold transition-all"
+            >
+              Back to Shop
+            </button>
+          </div>
+
       </div>
     </form>
   </div>
