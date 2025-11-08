@@ -14,14 +14,26 @@ function Cart() {
     setCart(storedCart);
   }, []);
 
-  const handleCart = () => {
-    if (item) {
-      const updatedCart = [...cart, item];
-      setCart(updatedCart);
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
-      toast.success("Item added to cart!");
+const handleCart = () => {
+  if (item) {
+    const existing = cart.find((c) => c.id === item.id);
+
+    let updatedCart;
+
+    if (existing) {
+      updatedCart = cart.map((c) =>
+        c.id === item.id ? { ...c, quantity: (c.quantity || 1) + 1 } : c
+      );
+    } else {
+      updatedCart = [...cart, { ...item, quantity: 1 }];
     }
-  };
+
+    setCart(updatedCart);
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    toast.success("Item added to cart!");
+  }
+};
+
 
   const handleShop = () => {
     navigate("/course");
@@ -35,10 +47,17 @@ function Cart() {
     toast.success("Item removed from cart!");
   };
 
-  const handleOrder = (item) => {
- 
-    navigate("/shop", { state: { item, orderNow: true } });
-  };
+const handleOrder = (item) => {
+  navigate("/shop", {
+    state: {
+      item,
+      quantity: item.quantity || 1,
+      price: item.price * (item.quantity || 1),
+      orderNow: true
+    }
+  });
+};
+
 
   return (
     <div className="flex flex-col min-h-screen">

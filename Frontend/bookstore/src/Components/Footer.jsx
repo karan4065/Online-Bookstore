@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="flex flex-col items-center justify-center gap-4">
         <div className="flex gap-6 text-3xl p-4 bg-base-100">
           <a href="https://github.com/karan4065" id="icon1" target="_blank" rel="noopener noreferrer">
-            <FaGithub className="hover:text-gray-800 transition-colors duration-300" />
+            <FaGithub className="hover:text-gray-500 transition-colors duration-300" />
           </a>
           <a href="https://www.linkedin.com/in/karan-jadhav-573968322/" id="icon2" target="_blank" rel="noopener noreferrer">
             <FaLinkedin className="hover:text-blue-800 transition-colors duration-300" />

@@ -4,18 +4,24 @@ import dotenv from "dotenv";
 import cors from "cors";
 import bookRoute from "./routes/book_route.js";
 import userRoute from "./routes/userRoute.js";
+import adminRoute from "./routes/adminRoute.js";
 import contactroute from "./routes/contact_route.js";
 import orderroute from "./routes/order_route.js";
 import Razorpay from "razorpay";
 import { createHmac } from "node:crypto";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cookieParser());
 
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:3000"],
+  credentials: true,
+}));
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connection
@@ -31,8 +37,8 @@ app.use("/book", bookRoute);
 app.use("/user", userRoute);
 app.use("/contact", contactroute);
 app.use("/product", orderroute);
+app.use('/admin',adminRoute);
 
-// Razorpay order route
 app.post("/order", async (req, res) => {
   try {
     const { amount, currency } = req.body;

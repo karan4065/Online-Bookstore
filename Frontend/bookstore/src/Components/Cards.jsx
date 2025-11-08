@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 function Cards({ item }) {
   return (
     <div className="p-2">
-      <div className="w-full h-[430px] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow-sm hover:shadow-lg transition-shadow duration-300">
+      <div className="w-full h-[450px] rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700 bg-white dark:bg-slate-900 shadow-sm hover:shadow-lg transition-shadow duration-300">
         
         {/* Image Section */}
-        <div className="h-56 w-full bg-gray-100 flex items-center justify-center">
+        <div className="h-72 w-full bg-gray-100 flex items-center justify-center">
           <img
             src={item.image}
             alt={item.name}
@@ -36,7 +36,7 @@ function Cards({ item }) {
             <Link
               to="/shop"
               state={{ item }}
-              className="text-sm font-medium px-3 py-1 rounded-full border-pink-300 text-pink-500 dark:border
+              className="text-sm font-medium px-3 py-1 rounded-full border-pink-300 text-pink-500 border
               hover:bg-pink-500 hover:text-white transition-colors duration-200"
             >
               Buy Now

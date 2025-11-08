@@ -18,7 +18,7 @@ function Login() {
     };
     try {
     
-      const res = await axios.post("https://online-bookstore-1-eblu.onrender.com/user/login", userInfo);
+      const res = await axios.post("http://localhost:3000/user/login", userInfo,{ withCredentials: true });
       if (res.data) {
         toast.success("Login Successfully !!");
         navigate(from ,{replace:true});
@@ -41,7 +41,7 @@ function Login() {
     <>
       <div>
         <dialog id="my_modal_3" className="modal">
-          <div className="modal-box bg-white dark:bg-slate-800 dark:text-white h-auto">
+          <div className="modal-box bg-white text-black dark:bg-slate-800 dark:text-white h-auto">
             <form onSubmit={handleSubmit(onSubmit)}>
             <Link
             to="/"
@@ -52,7 +52,7 @@ function Login() {
                 ✕
               </Link>
 
-              <h3 className="font-bold text-2xl">Login</h3>
+              <h3 className="font-bold text-2xl">User Login</h3>
 
               <div className="mt-8 grid space-y-2">
                 <span className="text-xl space-y-3">Email:</span>

@@ -22,7 +22,7 @@ function Signup() { // this is signup api call
       password: data.password,
     };
     try {
-      const res = await axios.post("https://online-bookstore-1-eblu.onrender.com/user/signup", userInfo);
+      const res = await axios.post("http://localhost:3000/user/signup", userInfo);
       if (res.data) {
         toast.success("Signup Successfully Go to Login !!");
         navigate(from ,{replace:true});
@@ -42,81 +42,100 @@ function Signup() { // this is signup api call
   return (
     <>
     <Navbar/>
-      <div className="bg-white dark:bg-slate-900 dark:text-white  md:h-screen flex items-center h-screen ml-8 mt-20 md:mt-0 md:ml-0 w-[450px] md:w-auto justify-center">
-        <div className="bg-white  dark:bg-slate-900  w-[450px]">
-          <div className="modal-box dark:bg-slate-800 dark:text-white mb-10">
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Link
-                to="/"
-                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-3 hover:border-white dark:bg-slate-800 dark:text-white  rounded-full"
-              >
-                ✕
-              </Link>
+     <div className="w-full min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 dark:text-white pt-10 md:pt-10">
 
-              <h3 className="font-bold text-2xl">Signup</h3>
+  {/* Container */}
+  <div className="flex flex-col border border-black dark:border-white md:flex-row w-[95%] max-w-5xl shadow-lg rounded-lg overflow-hidden bg-white dark:bg-slate-800">
 
-              <div className="mt-8 grid space-y-2">
-                <span className="text-xl space-y-3">Name:</span>
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  className="w-80 h-10 dark:bg-black dark:text-white rounded-sm border px-3"
-                  {...register("fullname", { required: "Name is required" })}
-                />
-                {errors.fullname && (
-                  <span className="text-red-500">{errors.name.message}</span>
-                )}
-              </div>
+    {/* Left Image Section */}
+    <div className="hidden md:flex   w-1/2 bg-gray-200 dark:bg-black items-center justify-center">
+      <img
+        src="https://img.freepik.com/free-vector/user-verification-unauthorized-access-prevention-private-account-authentication-cyber-security-people-entering-login-password-safety-measures_335657-3530.jpg?semt=ais_hybrid&w=740&q=80"
+        alt="Signup Visual"
+        className="w-full h-full object-cover"
+      />
+    </div>
 
-              <div className="mt-8 grid space-y-2">
-                <span className="text-xl space-y-3">Email:</span>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="w-80 h-10 dark:bg-black dark:text-white rounded-sm border px-3"
-                  {...register("email", { required: "Email is required" })}
-                />
-                {errors.email && (
-                  <span className="text-red-500">{errors.email.message}</span>
-                )}
-              </div>
+    {/* Right Form Section */}
+    <div className="w-full md:w-1/2 p-8 md:p-12 bg-white dark:bg-slate-900 dark:text-white">
 
-              <div className="mt-8 grid space-y-2">
-                <span className="text-xl space-y-3">Password:</span>
-                <input
-                  type="password"
-                  placeholder="Enter your password"
-                  className="w-80 h-10 dark:bg-black dark:text-white rounded-sm border px-3"
-                  {...register("password", { required: "Password is required" })}
-                />
-                {errors.password && (
-                  <span className="text-red-500">{errors.password.message}</span>
-                )}
-              </div>
+      
 
-              {/* button */}
-              <div className="flex mt-8 py-1 justify-between">
-                <button
-                  type="submit"
-                  className="bg-pink-400 hover:bg-pink-500  dark:bg-pink-600 dark:hover:bg-pink-700 duration-300 transition-all text-white ml-1 px-3 py-1 rounded-md"
-                >
-                  Signup
-                </button>
-            <div>
-               <p>
-                  Already Have an Account? 
-                   <a className="underline text-blue-700 cursor-pointer" onClick={() => document.getElementById('my_modal_3').showModal()}> 
-                    Login
-                  </a>
-               </p>
-            </div>
-              </div>
-            </form>
-            <Login />
-          </div>
+      <h3 className="font-bold text-3xl mb-8">Signup</h3>
+
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+
+        {/* Name */}
+        <div>
+          <label className="text-xl">Name:</label>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            className="w-full h-12 mt-1 dark:bg-black dark:text-white rounded-md border px-4"
+            {...register("fullname", { required: "Name is required" })}
+          />
+          {errors.fullname && (
+            <p className="text-red-500 text-sm mt-1">{errors.fullname.message}</p>
+          )}
         </div>
-      </div>
-       <div className="mt-[-150px]">
+
+        {/* Email */}
+        <div>
+          <label className="text-xl">Email:</label>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="w-full h-12 mt-1 dark:bg-black dark:text-white rounded-md border px-4"
+            {...register("email", { required: "Email is required" })}
+          />
+          {errors.email && (
+            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+          )}
+        </div>
+
+        {/* Password */}
+        <div>
+          <label className="text-xl">Password:</label>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            className="w-full h-12 mt-1 dark:bg-black dark:text-white rounded-md border px-4"
+            {...register("password", { required: "Password is required" })}
+          />
+          {errors.password && (
+            <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+          )}
+        </div>
+
+        {/* Buttons */}
+        <div className="flex flex-col gap-4">
+          <button
+            type="submit"
+            className="bg-pink-500 hover:bg-pink-600 dark:bg-pink-600 dark:hover:bg-pink-700 duration-300 text-white py-2 rounded-md"
+          >
+            Signup
+          </button>
+
+          <p className="text-center">
+            Already Have an Account?{" "}
+            <a
+              className="underline text-blue-700 cursor-pointer"
+              onClick={() => document.getElementById('my_modal_3').showModal()}
+            >
+              Login
+            </a>
+          </p>
+        </div>
+
+      </form>
+
+      <Login />
+
+    </div>
+  </div>
+</div>
+
+       <div className="">
         <Footer/>
        </div>
     </>

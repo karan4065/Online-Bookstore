@@ -10,9 +10,11 @@ function Homepage() {
   return (
     <>
          <Navbar/>
+         <div className=''>
          <Banner/>
          <Freebook/>
          <Home2/>
+         </div>
          <Footer/>
     </>
   )

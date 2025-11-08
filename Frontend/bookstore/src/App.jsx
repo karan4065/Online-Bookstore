@@ -14,6 +14,12 @@ import Aboutmain from './AboutPage/Aboutmain'
 import Orderpage from './OrderPage/Orderpage'
 import Cartmain from './CartPage/Cartmain'
 import Confirm from './OrderedPage/Confirm';
+import AdminLogin from './pages/AdminLogin';
+import AdminPage from './pages/AdminPage';
+import HomeAdmin from './pages/HomeAdmin';
+import AdmOrders from './pages/AdmOrders';
+import OrderStatus from './pages/OrderStatus';
+import ManageBook from './pages/ManageBook';
 const App = () => {
   useEffect(() => {
     AOS.init({
@@ -33,7 +39,7 @@ const App = () => {
   }
 
     const [authUser,setAuthUser  ] = useAuth();
-    console.log(authUser);
+  
   return (
 
     <div className='dark:bg-slate-900 dark:text-white'>
@@ -49,7 +55,11 @@ const App = () => {
       <Route path='/shop' element={<Orderpage/>}/>
       <Route path='/cart' 
       element = {authUser? <Cartmain/> : <Navigate to="/"/>}/>
-
+       <Route path='/adminpage' element={< HomeAdmin/>}/>
+         <Route path='/createBook' element={< AdminPage/>}/>
+           <Route path='/allorders' element={<  AdmOrders/>}/>
+        <Route path='/status' element={<  OrderStatus/>}/>
+          <Route path='/managebook' element={< ManageBook  />}/>
     </Routes>
     <Toaster/>
     </div>
